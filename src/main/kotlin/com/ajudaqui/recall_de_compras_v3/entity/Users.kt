@@ -13,7 +13,7 @@ import jakarta.persistence.OneToMany
 data class Users(
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long? = null,
         val name: String,
-        val active: Boolean,
+        val active: Boolean?= true,
         val accessToken: String,
         @OneToMany(mappedBy = "users") @JsonIgnore val purchases: List<Purchase> = emptyList(),
         @OneToMany(mappedBy = "users", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)

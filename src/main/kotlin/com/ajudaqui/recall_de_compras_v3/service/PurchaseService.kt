@@ -10,9 +10,9 @@ class PurchaseService(
         private var userService: UsersService
 ) {
 
-  fun create(userId: Long, name: String): Purchase {
+  fun create(accessToken:String, name: String): Purchase {
 
-    var user = userService.findById(userId)
+    var user = userService.findByAccessToken(accessToken)
 
     return purchaseRepository.save(Purchase(name = name, users = user))
   }
