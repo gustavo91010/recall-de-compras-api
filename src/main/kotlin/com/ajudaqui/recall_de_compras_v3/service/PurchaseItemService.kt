@@ -1,10 +1,9 @@
 package com.ajudaqui.recall_de_compras_v3.service
 
-import com.ajudaqui.recall_de_compras_v3.entity.Product
+import com.ajudaqui.recall_de_compras_v3.dto.ProductDTO
 import com.ajudaqui.recall_de_compras_v3.entity.PurchaseItem
 import com.ajudaqui.recall_de_compras_v3.exception.NotFoundException
 import com.ajudaqui.recall_de_compras_v3.repository.PurchaseItemRepository
-import java.math.BigDecimal
 import org.springframework.stereotype.Service
 
 @Service
@@ -14,29 +13,15 @@ class PurchaseItemService(
         private var productService: ProductService,
 ) {
 
-  fun create(
-          purchaseId: Long,
-          nome: String,
-          brand: String,
-          unit: String,
-          price: String,
-          quantity: Double,
-  ): PurchaseItem {
+  fun create(purchaseId: Long, quantity: Double, productDto: ProductDTO): PurchaseItem {
     var purchase = purchaseService.findById(purchaseId)
-    purchaseService.findById(purchaseId)
-    var product =
-            Product(
-                    name = nome,
-                    brand = brand,
-                    measuret_unit = unit,
-                    price = BigDecimal(price),
-                    users = purchase.users
-            )
-    return purchaseItemRepository.save(
+
+    var product = productService.getOrCreate(productDto, purchase.users.id!!)
+
+    return save(
             PurchaseItem(product = product, quantity = quantity, purchase = purchase)
     )
   }
-
   fun findById(id: Long): PurchaseItem =
           purchaseItemRepository.findById(id).orElseThrow {
             throw NotFoundException("Item não encontrado")
@@ -44,6 +29,16 @@ class PurchaseItemService(
 
   fun findByPurchase(purchaseId: Long): List<PurchaseItem> =
           purchaseItemRepository.findByPurchaseId(purchaseId)
+
+  fun update(purchaseItemId: Long, quantity: Double, productDto: ProductDTO) {
+
+    val item = findById(purchaseItemId)
+    var product = productService.getOrCreate(productDto, item.purchase.users.id!!)
+    save(item.copy(quantity = quantity, product = product))
+  }
+
+  private fun save(purchaseItem: PurchaseItem): PurchaseItem =
+          purchaseItemRepository.save(purchaseItem)
 
   // fun findByPurchase(purchaseId:Long):List<PurchaseItem>=
   //           purchaseItemRepository.findByPurchase(purchaseId)

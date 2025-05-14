@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service
 class PurchaseService(
         private var purchaseRepository: PurchaseRepository,
         private var userService: UsersService
-// private var purchaseService: PurchaseService
-
 ) {
 
   fun create(userId: Long, name: String): Purchase {
@@ -22,4 +20,11 @@ class PurchaseService(
           purchaseRepository.findById(id).orElseThrow {
             throw ClassNotFoundException("Compra não lcalizada")
           }
+
+  fun allPurchase(userId: Long): List<Purchase> = purchaseRepository.allPurchasse(userId)
+
+  fun update(purchaseId: Long, name: String): Purchase {
+    var purchase = findById(purchaseId).copy(name = name)
+    return purchaseRepository.save(purchase)
+  }
 }
