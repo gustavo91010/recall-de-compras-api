@@ -10,21 +10,22 @@ class PurchaseService(
         private var userService: UsersService
 ) {
 
-  fun create(accessToken:String, name: String): Purchase {
+    fun create(accessToken: String, name: String): Purchase {
 
-    var user = userService.findByAccessToken(accessToken)
+        var user = userService.findByAccessToken(accessToken)
 
-    return purchaseRepository.save(Purchase(name = name, users = user))
-  }
-  fun findById(id: Long): Purchase =
-          purchaseRepository.findById(id).orElseThrow {
-            throw ClassNotFoundException("Compra não lcalizada")
-          }
+        return purchaseRepository.save(Purchase(name = name, users = user))
+    }
+    fun findById(id: Long): Purchase =
+            purchaseRepository.findById(id).orElseThrow {
+                throw NoSuchElementException("Compra não localizada")
+            }
 
-  fun allPurchase(userId: Long): List<Purchase> = purchaseRepository.allPurchasse(userId)
+    fun allPurchas(accessToken: String): List<Purchase> =
+            purchaseRepository.allPurchasse(accessToken)
 
-  fun update(purchaseId: Long, name: String): Purchase {
-    var purchase = findById(purchaseId).copy(name = name)
-    return purchaseRepository.save(purchase)
-  }
+    fun update(purchaseId: Long, name: String): Purchase {
+        var purchase = findById(purchaseId).copy(name = name)
+        return purchaseRepository.save(purchase)
+    }
 }

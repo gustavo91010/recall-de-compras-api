@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/v1/users")
 class UsersController(private val usersService: UsersService) {
 
-  private val logger = LoggerFactory.getLogger(UsersController::class.java)
+    private val logger = LoggerFactory.getLogger(UsersController::class.java)
 
-  @Transactional
-  @PostMapping("/register/{name}")
-  fun create(@PathVariable name: String): ResponseEntity<Users> {
-    logger.info("[POST] | /v1/users/register/$name")
-    return ResponseEntity.status(HttpStatus.CREATED).body(usersService.create(name))
-  }
+    @Transactional
+    @PostMapping("/register/{name}")
+    fun create(@PathVariable name: String): ResponseEntity<Users> {
+        logger.info("[POST] | /v1/users/register/$name")
+        return ResponseEntity.status(HttpStatus.CREATED).body(usersService.create(name))
+    }
 }

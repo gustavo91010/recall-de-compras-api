@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 
 interface PurchaseRepository : JpaRepository<Purchase, Long> {
-
-  @Query(value = "SELECT * FROM purchase WHERE user_id= :userId", nativeQuery = true)
-  fun allPurchasse(userId: Long): List<Purchase>
+    @Query(value = "SELECT * FROM purchase WHERE accessToken= :accessToken", nativeQuery = true)
+    fun allPurchasse(accessToken: String): List<Purchase>
 }

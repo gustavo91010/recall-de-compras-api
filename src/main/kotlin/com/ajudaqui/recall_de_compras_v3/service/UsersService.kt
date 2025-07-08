@@ -10,15 +10,15 @@ import org.springframework.stereotype.Service
 @Service
 class UsersService(private val usersRepository: UsersRepository) {
 
-  fun create(name: String): Users =
-          usersRepository.save(Users(name = name, accessToken = UUID.randomUUID().toString()))
+    fun create(name: String): Users =
+            usersRepository.save(Users(name = name, accessToken = UUID.randomUUID().toString()))
 
-  fun findByAccessToken(accessToken: String): Users =
-          usersRepository.findByAccessToken(accessToken).orElseThrow {
-            NotFoundException("Usuário nao encontrado")
-          }
-  fun findById(userId: Long): Users =
-          usersRepository.findById(userId).orElseThrow {
-            NotFoundException("Usuário nao encontrado")
-          }
+    fun findByAccessToken(accessToken: String): Users =
+            usersRepository.findByAccessToken(accessToken).orElseThrow {
+                NotFoundException("Usuário nao encontrado")
+            }
+    fun findById(userId: Long): Users =
+            usersRepository.findById(userId).orElseThrow {
+                NotFoundException("Usuário nao encontrado")
+            }
 }

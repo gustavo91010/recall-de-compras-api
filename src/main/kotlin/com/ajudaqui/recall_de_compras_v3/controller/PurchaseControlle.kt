@@ -16,15 +16,22 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/v1/purchase")
 class PurchaseController(private val purchaseService: PurchaseService) {
 
-  private val logger = LoggerFactory.getLogger(PurchaseController::class.java)
+    private val logger = LoggerFactory.getLogger(PurchaseController::class.java)
 
-  @Transactional
-  @PostMapping("/new/{name}")
-  fun create(
-          @RequestHeader("Authorization") accessToken: String,
-          @PathVariable name: String
-  ): ResponseEntity<Purchase> {
-    logger.info("[POST] | /v1/purchase/new?$name")
-    return ResponseEntity.status(HttpStatus.CREATED).body(purchaseService.create(accessToken, name))
-  }
+    @Transactional
+    @PostMapping("/new/{name}")
+    fun create(
+            @RequestHeader("Authorization") accessToken: String,
+            @PathVariable name: String
+    ): ResponseEntity<Purchase> {
+        logger.info("[POST] | /v1/purchase/new?$name")
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(purchaseService.create(accessToken, name))
+    }
+   fun findAlla(
+       @RequestHeader("Authorization") accessToken: String): ResponseEntity<List<Purchase>>{
+
+       return ResponseEntity.ok(purchaseService.allPurchas(accessToken))
+   }
+
 }
