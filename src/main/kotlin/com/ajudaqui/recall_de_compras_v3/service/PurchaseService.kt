@@ -1,28 +1,30 @@
 package com.ajudaqui.recall_de_compras_v3.service
 
 import com.ajudaqui.recall_de_compras_v3.entity.Purchase
+import com.ajudaqui.recall_de_compras_v3.exception.MessageException
 import com.ajudaqui.recall_de_compras_v3.repository.PurchaseRepository
 import org.springframework.stereotype.Service
 
 @Service
 class PurchaseService(
-        private var purchaseRepository: PurchaseRepository,
-        private var userService: UsersService
+    private var purchaseRepository: PurchaseRepository,
+    private var userService: UsersService
 ) {
 
     fun create(accessToken: String, name: String): Purchase {
 
-        var user = userService.findByAccessToken(accessToken)
-
+        val user = userService.findByAccessToken(accessToken)
+        purchaseRepository.findByName(name).ifPresent { throw MessageException("compra já registrada.") }
         return purchaseRepository.save(Purchase(name = name, users = user))
     }
+
     fun findById(id: Long): Purchase =
-            purchaseRepository.findById(id).orElseThrow {
-                throw NoSuchElementException("Compra não localizada")
-            }
+        purchaseRepository.findById(id).orElseThrow {
+            throw MessageException("Compra não localizada")
+        }
 
     fun allPurchas(accessToken: String): List<Purchase> =
-            purchaseRepository.allPurchasse(accessToken)
+        purchaseRepository.allPurchsse(accessToken)
 
     fun update(purchaseId: Long, name: String): Purchase {
         var purchase = findById(purchaseId).copy(name = name)

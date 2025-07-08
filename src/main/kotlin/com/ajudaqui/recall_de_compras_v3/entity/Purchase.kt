@@ -12,5 +12,8 @@ data class Purchase(
         @OneToMany(mappedBy = "purchase") val itens: MutableList<PurchaseItem> = mutableListOf(),
         val createAt: LocalDateTime = LocalDateTime.now(),
         val updateAt: LocalDateTime = LocalDateTime.now(),
-        @ManyToOne @JoinColumn(name = "user_id") @JsonIgnore val users: Users
+        @ManyToOne(fetch = FetchType.EAGER)
+        @JoinColumn(name = "user_id")
+        @JsonIgnore
+        val users: Users
 ) {}

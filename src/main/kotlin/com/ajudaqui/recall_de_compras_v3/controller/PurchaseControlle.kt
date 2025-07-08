@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestHeader
@@ -21,16 +22,16 @@ class PurchaseController(private val purchaseService: PurchaseService) {
     @Transactional
     @PostMapping("/new/{name}")
     fun create(
-            @RequestHeader("Authorization") accessToken: String,
-            @PathVariable name: String
-    ): ResponseEntity<Purchase> {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(purchaseService.create(accessToken, name))
-    }
-   fun findAlla(
-       @RequestHeader("Authorization") accessToken: String): ResponseEntity<List<Purchase>>{
+        @RequestHeader("Authorization") accessToken: String,
+        @PathVariable name: String
+    ) = ResponseEntity.status(HttpStatus.CREATED)
+        .body(purchaseService.create(accessToken, name))
 
-       return ResponseEntity.ok(purchaseService.allPurchas(accessToken))
-   }
+
+    @GetMapping("/")
+    fun findAlla(
+        @RequestHeader("Authorization") accessToken: String
+    ) = ResponseEntity.ok(purchaseService.allPurchas(accessToken))
+
 
 }
