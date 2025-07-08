@@ -24,7 +24,6 @@ class PurchaseController(private val purchaseService: PurchaseService) {
             @RequestHeader("Authorization") accessToken: String,
             @PathVariable name: String
     ): ResponseEntity<Purchase> {
-        logger.info("[POST] | /v1/purchase/new?$name")
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(purchaseService.create(accessToken, name))
     }
