@@ -15,7 +15,7 @@ class ProductService(
 ) {
 
   fun getOrCreate(productDto: ProductDTO, userId: Long):Product {
-    var found = findProduct(userId, productDto.name, productDto.brand, productDto.measureUnit)
+    val found = findProduct(userId, productDto.name, productDto.brand, productDto.measureUnit)
     return found.firstOrNull() ?: create(userId, productDto)
 
   }

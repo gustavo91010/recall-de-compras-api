@@ -14,7 +14,8 @@ interface ProductRepository : JpaRepository<Product, Long> {
 
   @Query(value="SELECT * FROM product WHERE userId= :userId AND name= :name AND brand= :brand", nativeQuery= true)
   fun findProduct(userId: Long, name: String, brand: String): List<Product>
-  
-  @Query(value="SELECT * FROM product WHERE userId= :userId AND name= :name AND brand= :brand AND measuret_unit= :measuret_unit", nativeQuery= true)
+
+//    @Query(value="SELECT * FROM product WHERE userId= :userId AND name= :name AND brand= :brand AND measuret_unit= :measuret_unit", nativeQuery= true)
+    @Query(value="SELECT p FROM Product p WHERE p.users.id= :userId AND name= :name AND brand= :brand AND measuret_unit= :measuret_unit")
   fun findProduct(userId: Long, name: String, brand: String, measuret_unit: String): List<Product>
 }

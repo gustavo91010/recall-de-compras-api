@@ -22,8 +22,12 @@ class PurchaseService(
         purchaseRepository.findById(id).orElseThrow {
             throw MessageException("Compra não localizada")
         }
+    fun findByName(name: String): Purchase =
+        purchaseRepository.findByName(name).orElseThrow {
+            throw MessageException("Compra não localizada")
+        }
 
-    fun allPurchas(accessToken: String): List<Purchase> =
+    fun allPurchases(accessToken: String): List<Purchase> =
         purchaseRepository.allPurchsse(accessToken)
 
     fun update(purchaseId: Long, name: String): Purchase {

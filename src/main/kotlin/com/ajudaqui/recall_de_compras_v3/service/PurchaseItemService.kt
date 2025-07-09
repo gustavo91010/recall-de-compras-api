@@ -14,10 +14,9 @@ class PurchaseItemService(
 ) {
 
     fun create(purchaseId: Long, quantity: Double, productDto: ProductDTO): PurchaseItem {
-        var purchase = purchaseService.findById(purchaseId)
-
-        var product = productService.getOrCreate(productDto, purchase.users.id!!)
-
+        val purchase = purchaseService.findById(purchaseId)
+        val product = productService.getOrCreate(productDto, purchase.users.id!!)
+        print("")
         return save(PurchaseItem(product = product, quantity = quantity, purchase = purchase))
     }
     fun findById(id: Long): PurchaseItem =
