@@ -12,9 +12,10 @@ class LogginInterceptor : HandlerInterceptor {
         val params = request.parameterMap.entries.joinToString(", ") {
             "${it.key}=${it.value.joinToString()} | "
         }
+        val auth= request.getHeader("Authorization")
         val textParams = params.ifEmpty { "" }
         val clientIp = request.remoteAddr
-        logger.info("[${request.method}] ${request.requestURI} | $textParams IP: $clientIp")
+        logger.info("IP: $clientIp | [${request.method}] ${request.requestURI} | $textParams Auth: $auth")
         return true;
     }
 }

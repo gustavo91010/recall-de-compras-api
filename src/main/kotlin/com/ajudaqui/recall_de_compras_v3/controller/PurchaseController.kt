@@ -1,6 +1,8 @@
 package com.ajudaqui.recall_de_compras_v3.controller
 
 import com.ajudaqui.recall_de_compras_v3.mapper.PurchaseMapper
+import com.ajudaqui.recall_de_compras_v3.mapper.PurchaseMapper.toListPurchaseResponse
+import com.ajudaqui.recall_de_compras_v3.mapper.PurchaseMapper.toPurchaseResponse
 import com.ajudaqui.recall_de_compras_v3.service.PurchaseService
 import jakarta.transaction.Transactional
 import org.slf4j.LoggerFactory
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -32,11 +33,11 @@ class PurchaseController(private val purchaseService: PurchaseService) {
     @GetMapping("/")
     fun findAll(
         @RequestHeader("Authorization") accessToken: String
-    ) = ResponseEntity.ok(purchaseService.allPurchases(accessToken))
+    ) = ResponseEntity.ok(toListPurchaseResponse(purchaseService.allPurchases(accessToken)))
 
     @GetMapping("/{name}")
     fun findByName(
-        @PathVariable ("name")name: String, @RequestHeader("Authorization") accessToken: String
-    ) = ResponseEntity.ok(PurchaseMapper.toPurchaseResponse(purchaseService.findByName(name)))
+        @PathVariable("name") name: String, @RequestHeader("Authorization") accessToken: String
+    ) = ResponseEntity.ok(toPurchaseResponse(purchaseService.findByName(name)))
 
 }

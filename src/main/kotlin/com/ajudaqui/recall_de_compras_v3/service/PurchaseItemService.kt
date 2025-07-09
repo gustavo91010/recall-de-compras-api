@@ -19,7 +19,7 @@ class PurchaseItemService(
     fun create(purchaseId: Long, quantity: Double, productDto: ProductDTO): PurchaseItem {
         val purchase = purchaseService.findById(purchaseId)
         purchaseService.update(purchase)
-        val product = productService.getOrCreate(productDto, purchase.users.id!!)
+        val product = productService.getOrCreate(productDto, purchase.users.accessToken)
         return save(PurchaseItem(product = product, quantity = quantity, purchase = purchase))
     }
 
@@ -34,7 +34,7 @@ class PurchaseItemService(
     fun update(accessToken: String, purchaseItemId: Long, quantity: Double, productDto: ProductDTO) {
 
         val item = findById(purchaseItemId, accessToken)
-        val product = productService.getOrCreate(productDto, item.purchase.users.id!!)
+        val product = productService.getOrCreate(productDto, item.purchase.users.accessToken)
         save(item.copy(quantity = quantity, product = product))
     }
 

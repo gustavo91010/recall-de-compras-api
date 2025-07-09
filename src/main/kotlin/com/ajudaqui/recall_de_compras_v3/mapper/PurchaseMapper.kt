@@ -21,4 +21,7 @@ object PurchaseMapper {
 
         )
     }
+
+    fun toListPurchaseResponse(purchases: List<Purchase>): List<ResponsePurchaseDTO> =
+        purchases.map { toPurchaseResponse(it) }
 }
