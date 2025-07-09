@@ -1,25 +1,17 @@
 package com.ajudaqui.recall_de_compras_v3.controller
 
-import com.ajudaqui.recall_de_compras_v3.service.PurchaseItemService
 import com.ajudaqui.recall_de_compras_v3.dto.ProductDTO
 import com.ajudaqui.recall_de_compras_v3.entity.PurchaseItem
-
+import com.ajudaqui.recall_de_compras_v3.service.PurchaseItemService
 import org.slf4j.LoggerFactory
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
 
 
 @RestController
 @RequestMapping("/v1/purchasse-item")
 class PurchasseItemController(private val purchaseItemService: PurchaseItemService) {
     private val logger = LoggerFactory.getLogger(PurchasseItemController::class.java)
-
 
     @PostMapping("/create/{purchaseId}")
     fun createItem(
@@ -39,7 +31,20 @@ class PurchasseItemController(private val purchaseItemService: PurchaseItemServi
             ResponseEntity.notFound().build()
         }
     }
+
+    @GetMapping("/{id}")
+    fun getById(@RequestHeader("Authorization") accessToken: String, @PathVariable("id") id: Long) =
+        ResponseEntity.ok(
+            purchaseItemService.findById(id, accessToken)
+        )
+
+
+    @DeleteMapping("{id}")
+    fun delete(
+        @RequestHeader("Authorization") accessToken: String,
+        @PathVariable("id") id: Long
+    ): ResponseEntity<Void> {
+        purchaseItemService.delete(id, accessToken)
+        return ResponseEntity.noContent().build()
+    }
 }
-
-
-
