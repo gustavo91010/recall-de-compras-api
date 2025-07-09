@@ -28,9 +28,9 @@ class ProductController(private val productService: ProductService) {
         @RequestHeader("Authorization") accessToken: String,
     ) = ResponseEntity.ok( productService.findProduct(accessToken))
 
-    @GetMapping("/name/{name}")
-    fun findByName(
-        @RequestHeader("Authorization") accessToken: String,
-        @PathVariable("name") name:String
-    ) = ResponseEntity.ok( productService.findByName(accessToken, name))
+//    @GetMapping("/name/{name}")
+//    fun findByName(
+//        @RequestHeader("Authorization") accessToken: String,
+//        @PathVariable("name") name:String
+//    ) = ResponseEntity.ok( productService.findByName(accessToken, name))
 }

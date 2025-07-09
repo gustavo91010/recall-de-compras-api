@@ -21,5 +21,5 @@ interface ProductRepository : JpaRepository<Product, Long>, JpaSpecificationExec
 //    fun findProduct(userId: Long, name: String, brand: String, measuret_unit: String): List<Product>
 
     fun findByBrand(brand: String): List<Product>
-    fun findByName(accessToken: String, name: String): List<Product>
+    // fun findByName(accessToken: String, name: String): List<Product>
 }

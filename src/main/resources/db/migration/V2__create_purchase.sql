@@ -3,6 +3,5 @@ CREATE TABLE purchase (
     name VARCHAR(255) NOT NULL,
     create_at TIMESTAMP NOT NULL DEFAULT now(),
     update_at TIMESTAMP NOT NULL DEFAULT now(),
-    user_id BIGINT NOT NULL REFERENCES users(id)
-);
+    access_token VARCHAR(255) NOT NULL REFERENCES users(access_token));
 

@@ -28,8 +28,8 @@ class PurchaseItemService(
             throw NotFoundException("Item não encontrado")
         }.also { checkPermission(it, usersService.findByAccessToken(accessToken)) }
 
-    fun findByPurchase(purchaseId: Long): List<PurchaseItem> =
-        purchaseItemRepository.findByPurchaseId(purchaseId)
+//    fun findByPurchase(purchaseId: Long): List<PurchaseItem> =
+//        purchaseItemRepository.findByPurchaseId(purchaseId)
 
     fun update(accessToken: String, purchaseItemId: Long, quantity: Double, productDto: ProductDTO) {
 

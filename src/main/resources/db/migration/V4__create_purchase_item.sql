@@ -4,4 +4,3 @@ CREATE TABLE purchase_item (
     quantity DOUBLE PRECISION DEFAULT 0,
     purchase_id BIGINT NOT NULL REFERENCES purchase(id)
 );
-

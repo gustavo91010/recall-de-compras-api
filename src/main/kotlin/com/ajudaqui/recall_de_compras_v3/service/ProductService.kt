@@ -49,17 +49,17 @@ class ProductService(
     fun findByBrand(brand: String): List<Product> =
         productRepository.findByBrand(brand)
 
-    fun findByName(accessToken: String, name: String): List<Product> =
-        productRepository.findByName(accessToken,name);
+//    fun findByName(accessToken: String, name: String): List<Product> =
+//        productRepository.findByName(accessToken,name);
 
     fun findById(id: Long): Product =
         productRepository.findById(id).orElseThrow { NotFoundException("Produto não localizado") }
 
     fun update(userId: Long, productId: Long, productDTO: ProductDTO): Product {
         val product = findById(productId)
-        if (product.users.id != userId) {
-            throw UnauthorizedException("Solicitação não autorizada")
-        }
+//        if (product.users.id != userId) {
+//            throw UnauthorizedException("Solicitação não autorizada")
+//        }
         val uploadProduct =
             product.copy(
                 name = productDTO.name,

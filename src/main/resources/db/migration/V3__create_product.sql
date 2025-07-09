@@ -5,6 +5,5 @@ CREATE TABLE product (
     measuret_unit VARCHAR(50) NOT NULL,
     price NUMERIC(19,2) DEFAULT 0,
     observation TEXT,
-    user_id BIGINT NOT NULL REFERENCES users(id)
-);
+    access_token VARCHAR(255) NOT NULL REFERENCES users(access_token));
 

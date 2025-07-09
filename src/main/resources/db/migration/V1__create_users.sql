@@ -2,6 +2,5 @@ CREATE TABLE users (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     active BOOLEAN DEFAULT TRUE,
-    access_token VARCHAR(255) NOT NULL
+    access_token VARCHAR(255) NOT NULL UNIQUE
 );
-

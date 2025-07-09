@@ -13,7 +13,6 @@ data class Purchase(
         val createAt: LocalDateTime = LocalDateTime.now(),
         val updateAt: LocalDateTime = LocalDateTime.now(),
         @ManyToOne(fetch = FetchType.EAGER)
-        @JoinColumn(name = "user_id")
-        @JsonIgnore
+        @JoinColumn(name = "access_token", referencedColumnName = "access_token", nullable = false)        @JsonIgnore
         val users: Users
 ) {}

@@ -38,6 +38,7 @@ class PurchaseController(private val purchaseService: PurchaseService) {
     @GetMapping("/{name}")
     fun findByName(
         @PathVariable("name") name: String, @RequestHeader("Authorization") accessToken: String
-    ) = ResponseEntity.ok(toPurchaseResponse(purchaseService.findByName(name)))
+//    ) = ResponseEntity.ok(toPurchaseResponse(purchaseService.findByName(name)))
+    ) = ResponseEntity.ok(purchaseService.findByName(name))
 
 }
