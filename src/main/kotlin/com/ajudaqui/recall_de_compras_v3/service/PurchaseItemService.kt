@@ -5,6 +5,7 @@ import com.ajudaqui.recall_de_compras_v3.entity.PurchaseItem
 import com.ajudaqui.recall_de_compras_v3.exception.NotFoundException
 import com.ajudaqui.recall_de_compras_v3.repository.PurchaseItemRepository
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 
 @Service
 class PurchaseItemService(
@@ -15,8 +16,8 @@ class PurchaseItemService(
 
     fun create(purchaseId: Long, quantity: Double, productDto: ProductDTO): PurchaseItem {
         val purchase = purchaseService.findById(purchaseId)
+        purchaseService.update(purchase)
         val product = productService.getOrCreate(productDto, purchase.users.id!!)
-        print("")
         return save(PurchaseItem(product = product, quantity = quantity, purchase = purchase))
     }
     fun findById(id: Long): PurchaseItem =
@@ -30,7 +31,7 @@ class PurchaseItemService(
     fun update(purchaseItemId: Long, quantity: Double, productDto: ProductDTO) {
 
         val item = findById(purchaseItemId)
-        var product = productService.getOrCreate(productDto, item.purchase.users.id!!)
+        val product = productService.getOrCreate(productDto, item.purchase.users.id!!)
         save(item.copy(quantity = quantity, product = product))
     }
 

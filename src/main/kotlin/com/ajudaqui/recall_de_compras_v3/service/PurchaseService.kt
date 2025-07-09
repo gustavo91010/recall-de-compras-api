@@ -4,6 +4,7 @@ import com.ajudaqui.recall_de_compras_v3.entity.Purchase
 import com.ajudaqui.recall_de_compras_v3.exception.MessageException
 import com.ajudaqui.recall_de_compras_v3.repository.PurchaseRepository
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 
 @Service
 class PurchaseService(
@@ -22,6 +23,7 @@ class PurchaseService(
         purchaseRepository.findById(id).orElseThrow {
             throw MessageException("Compra não localizada")
         }
+
     fun findByName(name: String): Purchase =
         purchaseRepository.findByName(name).orElseThrow {
             throw MessageException("Compra não localizada")
@@ -30,8 +32,11 @@ class PurchaseService(
     fun allPurchases(accessToken: String): List<Purchase> =
         purchaseRepository.allPurchsse(accessToken)
 
-    fun update(purchaseId: Long, name: String): Purchase {
-        var purchase = findById(purchaseId).copy(name = name)
-        return purchaseRepository.save(purchase)
-    }
+    fun changeName(purchaseId: Long, name: String): Purchase
+    = update(findById(purchaseId).copy(name = name))
+
+
+    fun update(purchase: Purchase): Purchase
+    = purchaseRepository.save(purchase.copy(updateAt = LocalDateTime.now()))
+
 }

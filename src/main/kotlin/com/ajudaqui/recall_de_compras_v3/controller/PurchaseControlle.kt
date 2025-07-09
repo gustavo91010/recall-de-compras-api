@@ -1,5 +1,6 @@
 package com.ajudaqui.recall_de_compras_v3.controller
 
+import com.ajudaqui.recall_de_compras_v3.mapper.PurchaseMapper
 import com.ajudaqui.recall_de_compras_v3.service.PurchaseService
 import jakarta.transaction.Transactional
 import org.slf4j.LoggerFactory
@@ -36,6 +37,6 @@ class PurchaseController(private val purchaseService: PurchaseService) {
     @GetMapping("/{name}")
     fun findByName(
         @PathVariable ("name")name: String, @RequestHeader("Authorization") accessToken: String
-    ) = ResponseEntity.ok(purchaseService.findByName(name))
+    ) = ResponseEntity.ok(PurchaseMapper.toPurchaseResponse(purchaseService.findByName(name)))
 
 }
