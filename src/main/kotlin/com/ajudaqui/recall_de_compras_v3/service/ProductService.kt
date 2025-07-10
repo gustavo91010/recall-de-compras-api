@@ -58,13 +58,14 @@ class ProductService(
     fun update(userId: Long, productId: Long, productDTO: ProductDTO): Product {
         val product = findById(productId)
 //        if (product.users.id != userId) {
+    //
 //            throw UnauthorizedException("Solicitação não autorizada")
 //        }
         val uploadProduct =
             product.copy(
                 name = productDTO.name,
                 brand = productDTO.brand,
-                measuret_unit = productDTO.measureUnit,
+                measureUnit = productDTO.measureUnit,
                 price = productDTO.price
             )
 
